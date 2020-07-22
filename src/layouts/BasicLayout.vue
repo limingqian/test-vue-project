@@ -7,10 +7,11 @@
         :trigger="null"
         v-model="collapsed"
         collapsible
+        width="256px"
       >
         <div class="logo">ant design vue pro</div>
 
-        <SiderMenu />
+        <SiderMenu :theme="navTheme" />
       </a-layout-sider>
       <a-layout>
         <a-layout-header style="background: #fff; padding: 0">

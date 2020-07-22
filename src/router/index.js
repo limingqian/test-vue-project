@@ -1,8 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
+import findLast from "lodash/findLast";
 import "nprogress/nprogress.css";
 import NotFound from "./../views/others/404"; // 非异步加载
+import Forbidden from "./../views/others/403"; // 非异步加载
+import { check, isLogin } from "./../utils/auth";
+import { notification } from "ant-design-vue";
 // import RenderRouterView from "./../components/RenderRouterView";
 
 Vue.use(VueRouter);
@@ -10,6 +14,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/user",
+    hideInMenu: true,
     // component: RenderRouterView,
     // component: { render: h => h("router-view") },
     component: () =>
@@ -35,6 +40,7 @@ const routes = [
   },
   {
     path: "/",
+    meta: { authority: ["user", "admin"] },
     component: () =>
       import(/* webpackChunkName: "layout" */ "./../layouts/BasicLayout"),
     children: [
@@ -46,11 +52,13 @@ const routes = [
       {
         path: "/dashboard",
         name: "dashboard",
+        meta: { icon: "dashboard", title: "仪表盘" },
         component: { render: h => h("router-view") },
         children: [
           {
             path: "/dashboard/analysis",
             name: "analysis",
+            meta: { title: "分析页" },
             component: () =>
               import(
                 /* webpackChunkName: "dashboard" */
@@ -64,10 +72,12 @@ const routes = [
         path: "/form",
         name: "form",
         component: { render: h => h("router-view") },
+        meta: { icon: "form", title: "表单", authority: ["admin"] },
         children: [
           {
             path: "/form/basic-form",
             name: "basicform",
+            meta: { title: "基础表单" },
             component: () =>
               import(
                 /* webpackChunkName: "form" */
@@ -76,7 +86,9 @@ const routes = [
           },
           {
             path: "/form/step-form",
+            hideChildrenMenu: true,
             name: "stepform",
+            meta: { title: "分部表单" },
             component: () =>
               import(
                 /* webpackChunkName: "form" */
@@ -123,7 +135,14 @@ const routes = [
   {
     path: "*",
     name: "404",
+    hideInMenu: true,
     component: NotFound
+  },
+  {
+    path: "/403",
+    name: "403",
+    hideInMenu: true,
+    component: Forbidden
   }
 ];
 
@@ -137,6 +156,24 @@ router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProgress.start();
   }
+  const record = findLast(to.matched, record => record.meta.authority);
+  if (record && !check(record.meta.authority)) {
+    if (!isLogin() && to.path !== "/user/login") {
+      next({
+        path: "/user/login"
+      });
+    } else if (to.path !== "/403") {
+      notification.error({
+        message: "403",
+        description: "无权限"
+      });
+      next({
+        path: "/403"
+      });
+    }
+    NProgress.done();
+  }
+
   next();
 });
 

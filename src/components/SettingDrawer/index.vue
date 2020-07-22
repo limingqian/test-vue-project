@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       visible: false
-      // navLayout: "left"
     };
   },
   methods: {
@@ -43,12 +42,6 @@ export default {
     //   this.visible = false;
     // }
     handleSettingChange(type, value) {
-      // this.$route.push({
-      //   query: {
-      //     ...this.$route.query,
-      //     [type]: value
-      //   }
-      // });
       this.$router.push({ query: { ...this.$route.query, [type]: value } });
     }
   }
