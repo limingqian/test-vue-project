@@ -1,6 +1,6 @@
 export function getCurrentAuthority() {
   // 后台传回
-  return ["user"];
+  return ["admin"];
 }
 
 export function check(authority) {
