@@ -3,6 +3,7 @@ import "nprogress/nprogress.css";
 import { notification } from "ant-design-vue";
 
 function request(options) {
+  // options = { ...options, headers: { "Content-Type": "application/json" } };
   return axios(options)
     .then(res => {
       return res;

@@ -1,7 +1,14 @@
 <template>
   <a-form :layout="formLayout" :form="form">
-    <a-form-item label="Form Layout" :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol">
-      <a-radio-group default-value="horizontal" @change="handleFormLayoutChange">
+    <a-form-item
+      label="Form Layout"
+      :label-col="formItemLayout.labelCol"
+      :wrapper-col="formItemLayout.wrapperCol"
+    >
+      <a-radio-group
+        default-value="horizontal"
+        @change="handleFormLayoutChange"
+      >
         <a-radio-button value="horizontal">
           Horizontal
         </a-radio-button>
@@ -13,7 +20,11 @@
         </a-radio-button>
       </a-radio-group>
     </a-form-item>
-    <a-form-item label="Field A" :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol">
+    <a-form-item
+      label="Field A"
+      :label-col="formItemLayout.labelCol"
+      :wrapper-col="formItemLayout.wrapperCol"
+    >
       <a-input
         v-decorator="[
           'fieldA',
@@ -25,7 +36,11 @@
         placeholder="input placeholder"
       />
     </a-form-item>
-    <a-form-item label="Field B" :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol">
+    <a-form-item
+      label="Field B"
+      :label-col="formItemLayout.labelCol"
+      :wrapper-col="formItemLayout.wrapperCol"
+    >
       <a-input v-decorator="['fieldB']" placeholder="input placeholder" />
     </a-form-item>
     <a-form-item :wrapper-col="buttonItemLayout.wrapperCol">
