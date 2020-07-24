@@ -1,11 +1,7 @@
 <template>
   <div>
-    <a-form layout="horizontal" :form="form">
-      <a-form-item
-        label="付款账户"
-        :label-col="formItemLayout.labelCol"
-        :wrapper-col="formItemLayout.wrapperCol"
-      >
+    <a-form layout="horizontal" :form="form" style="width:600px">
+      <a-form-item label="付款账户" :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol">
         <a-input
           v-decorator="[
             'payAccount',
@@ -17,6 +13,30 @@
           placehoder="请输入付款账号"
         ></a-input>
       </a-form-item>
+      <a-form-item label="收款账户" :label-col="formItemLayout.labelCol" :wrapper-col="formItemLayout.wrapperCol">
+        <ReceiveAccount
+          v-decorator="[
+            'receiveAccount',
+            {
+              initialValue: step.receiveAccount,
+              rules: [
+                {
+                  required: true,
+                  message: '请输入收款账号',
+                  validator: (rule, value, callback) => {
+                    if (value && value.number) {
+                      callback();
+                    } else {
+                      callback(false);
+                    }
+                  }
+                }
+              ]
+            }
+          ]"
+          placehoder="请输入付款账号"
+        ></ReceiveAccount>
+      </a-form-item>
       <a-form-item>
         <a-button type="primary" @click="handleSubmit">下一步</a-button>
       </a-form-item>
@@ -25,7 +45,15 @@
 </template>
 
 <script>
+// @是webpack配置的,指src目录,自定义别名
+import ReceiveAccount from "@/components/ReceiveAccount";
+
+// import ReceiveAccount from "../../../components/ReceiveAccount";
 export default {
+  // import 加 components ,引入加注册
+  components: {
+    ReceiveAccount
+  },
   data() {
     this.form = this.$form.createForm(this);
 
