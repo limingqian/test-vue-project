@@ -4,7 +4,7 @@
       placement="right"
       :closable="false"
       :visible="visible"
-      width="400px"
+      width="300px"
     >
       <template v-slot:handle>
         <div class="handle" @click="visible = !visible">
@@ -50,8 +50,8 @@ export default {
 <style scoped>
 .handle {
   position: absolute;
-  top: 240px;
-  right: 400px;
+  top: 340px;
+  right: 300px;
   width: 48px;
   height: 48px;
   background: blue;

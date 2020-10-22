@@ -1,5 +1,8 @@
 <template>
   <div>
+    {{ $t("message")["app.dashboard.analysis.timeLabel"] }} :
+    <a-date-picker></a-date-picker>
+    <!-- 组件和参数剥离,从父组件传入 -->
     <Chart :option="chartOption" style="height:300px" />
   </div>
 </template>
@@ -32,7 +35,7 @@ export default {
       }).then(response => {
         this.chartOption = {
           title: {
-            text: "ECharts 入门示例"
+            text: "物品销量"
           },
           tooltip: {},
           xAxis: {

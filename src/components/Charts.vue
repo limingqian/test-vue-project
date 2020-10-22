@@ -35,6 +35,7 @@ export default {
   },
   beforeDestroy() {
     removeListener(this.$refs.chartDom, this.resize);
+    // 销毁掉chart实例,防止内存泄漏
     this.chart.dispose();
     this.chart = null;
   },

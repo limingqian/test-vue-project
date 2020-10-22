@@ -1,6 +1,12 @@
+import storage from "./storage";
+
 export function getCurrentAuthority() {
-  // 后台传回
-  return ["admin"];
+  let authArray = storage.get("auth");
+  if (authArray.length > 0) {
+    return authArray;
+  } else {
+    return ["guest"];
+  }
 }
 
 export function check(authority) {
@@ -10,5 +16,6 @@ export function check(authority) {
 
 export function isLogin() {
   const current = getCurrentAuthority();
-  return current && current[0] !== "guest";
+  // 存在且不是游客
+  return current && current.indexOf("guest") < 0;
 }

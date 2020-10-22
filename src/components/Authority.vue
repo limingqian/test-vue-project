@@ -1,5 +1,6 @@
 <script>
 import { check } from "../utils/auth";
+// 权限组件
 export default {
   functional: true,
   props: {

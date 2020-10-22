@@ -1,6 +1,6 @@
 <template>
   <div :class="[`nav-theme-${navTheme}`, `nav-layout-${navLayout}`]">
-    <a-layout id="components-layout-demo-side" style="min-height: 100vh">
+    <a-layout class="components-layout-demo-side" style="min-height: 100vh">
       <a-layout-sider
         v-if="navLayout === 'left'"
         :theme="navTheme"
@@ -9,12 +9,13 @@
         collapsible
         width="256px"
       >
-        <div class="logo">ant design vue pro</div>
+        <div class="logo">练习本程序</div>
 
-        <SiderMenu :theme="navTheme" />
+        <SiderMenu :theme="navTheme"></SiderMenu>
       </a-layout-sider>
       <a-layout>
         <a-layout-header style="background: #fff; padding: 0">
+          <!-- 打开关闭显示不同的图标 -->
           <a-icon
             v-auth="['admin']"
             class="trigger"
@@ -32,6 +33,7 @@
         </a-layout-footer>
       </a-layout>
     </a-layout>
+    <!-- 权限控制组件 -->
     <Authorized :authority="['admin']">
       <SettingDrawer />
     </Authorized>
@@ -70,6 +72,11 @@ export default {
 </script>
 
 <style scoped>
+/* 深度选择器 改变特定按钮颜色 */
+/* .components-layout-demo-side >>> .ant-menu-dark .ant-menu-item-selected {
+  color: black;
+} */
+
 .trigger {
   padding: 0 20px;
   line-height: 64px;

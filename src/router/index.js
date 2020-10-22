@@ -12,6 +12,7 @@ import { notification } from "ant-design-vue";
 Vue.use(VueRouter);
 
 const routes = [
+  // 用户登录注册
   {
     path: "/user",
     hideInMenu: true,
@@ -88,7 +89,7 @@ const routes = [
             path: "/form/step-form",
             hideChildrenMenu: true,
             name: "stepform",
-            meta: { title: "分部表单" },
+            meta: { title: "分步表单" },
             component: () =>
               import(
                 /* webpackChunkName: "form" */
@@ -129,6 +130,51 @@ const routes = [
             ]
           }
         ]
+      },
+      // test
+      {
+        path: "/test",
+        name: "test",
+        component: { render: h => h("router-view") },
+        meta: { icon: "info", title: "测试", authority: ["admin"] },
+        children: [
+          {
+            path: "/test/test1",
+            name: "test",
+            meta: { title: "测试" },
+            component: () => import("./../views/Test/test1")
+          }
+        ]
+      },
+      // 物品管理
+      {
+        path: "/good",
+        name: "good",
+        component: { render: h => h("router-view") },
+        meta: { icon: "menu", title: "物品", authority: ["admin"] },
+        children: [
+          {
+            path: "/good/good",
+            name: "type",
+            meta: { title: "物品管理" },
+            component: () => import("./../views/Good/good")
+          }
+        ]
+      },
+      // 分类管理
+      {
+        path: "/setting",
+        name: "setting",
+        component: { render: h => h("router-view") },
+        meta: { icon: "menu", title: "系统设置", authority: ["admin"] },
+        children: [
+          {
+            path: "/setting/type",
+            name: "type",
+            meta: { title: "分类管理" },
+            component: () => import("./../views/Setting/type")
+          }
+        ]
       }
     ]
   },
@@ -152,13 +198,17 @@ const router = new VueRouter({
   routes
 });
 
+// 路由守卫
 router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
+    // 路由发生变化时,开始进度条
     NProgress.start();
   }
   const record = findLast(to.matched, record => record.meta.authority);
+  // 判断权限
   if (record && !check(record.meta.authority)) {
     if (!isLogin() && to.path !== "/user/login") {
+      // 必须调用next路由才能往下走
       next({
         path: "/user/login"
       });
@@ -178,6 +228,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
+  // 结束进度条
   NProgress.done();
 });
 

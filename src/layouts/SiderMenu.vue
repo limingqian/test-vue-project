@@ -43,6 +43,7 @@ export default {
   data() {
     this.selectedKeysMap = {};
     this.openKeysMap = {};
+    // 获取router中的路由信息,遍历出菜单列表
     const menuData = this.getMenuData(this.$router.options.routes);
     return {
       collapsed: false,
@@ -56,6 +57,7 @@ export default {
     getMenuData(routes = [], parentKeys = [], selectedKey) {
       const menuData = [];
       for (const item of routes) {
+        // 没有权限不显示菜单
         if (item.meta && item.meta.authority && !check(item.meta.authority)) {
           break;
         }

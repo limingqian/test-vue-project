@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div class="desc">ant design vue pro</div>
+  <div class="background">
     <router-view></router-view>
   </div>
 </template>
@@ -11,4 +10,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.background {
+  background: url(./../assets/cat3.gif) no-repeat center center;
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+}
+</style>
