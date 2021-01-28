@@ -12,7 +12,7 @@ export default {
 
 <style>
 .background {
-  background: url(./../assets/cat3.gif) no-repeat center center;
+  background: url(./../assets/cat5.gif) no-repeat center center;
   height: 100vh;
   width: 100%;
   background-size: cover;

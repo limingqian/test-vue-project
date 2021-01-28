@@ -136,13 +136,26 @@ const routes = [
         path: "/test",
         name: "test",
         component: { render: h => h("router-view") },
-        meta: { icon: "info", title: "测试", authority: ["admin"] },
+        // meta: { icon: "info", title: "测试", authority: ["admin"] },
+        meta: { icon: "info", title: "测试" },
         children: [
           {
             path: "/test/test1",
             name: "test",
             meta: { title: "测试" },
             component: () => import("./../views/Test/test1")
+          },
+          {
+            path: "/test/test2",
+            name: "test2",
+            meta: { title: "测试2" },
+            component: () => import("./../views/Test/test2")
+          },
+          {
+            path: "/test/test3",
+            name: "test3",
+            meta: { title: "测试3" },
+            component: () => import("./../views/Test/test3")
           }
         ]
       },
@@ -207,6 +220,10 @@ router.beforeEach((to, from, next) => {
   const record = findLast(to.matched, record => record.meta.authority);
   // 判断权限
   if (record && !check(record.meta.authority)) {
+    console.log("++++++++++");
+    console.log(isLogin());
+    console.log("++++++++++");
+
     if (!isLogin() && to.path !== "/user/login") {
       // 必须调用next路由才能往下走
       next({

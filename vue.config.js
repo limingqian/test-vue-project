@@ -12,9 +12,12 @@ const options = {
   themeVariables: ["@primary-color"],
   generateOnce: false
 };
+const BASE_URL =
+  process.env.NODE_ENV === "production" ? "/test-vue-project/" : "/";
 
 const themePlugin = new AntDesignThemePlugin(options);
 module.exports = {
+  publicPath: BASE_URL,
   css: {
     loaderOptions: {
       less: {

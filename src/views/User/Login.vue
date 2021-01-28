@@ -37,6 +37,9 @@ export default {
 
       // 请求后台
       const response = await login({ username: this.username, pwd: this.pwd });
+      // let response = {
+      //   data: "admin"
+      // };
       // 返回权限列表
       let auth = response.data;
       if (auth === "error") {
